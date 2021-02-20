@@ -20,5 +20,10 @@ JavaScript.
 
 É necessário fornecer as chaves para uso de ambas as APIs.
 
-
+###  Demonstração de uso
+<a href="https://github.com/EvaCosta/MemoryGame/blob/main/Demo/error.gif">
+  <div align="center">
+    <img src="https://github.com/EvaCosta/Webservices/blob/main/open_weather_map/imagens/OpenWeatherMap.png"  width="90%" height="90%">
+  </div>
+</a>
     
