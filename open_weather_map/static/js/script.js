@@ -2,9 +2,9 @@ function requisicao(){
     var url_img = 'http://openweathermap.org/img/w/';
     var extensao = '.png';
     var unidade = '&units=metric';
-    var key = '';
+    var key = '&appid=KEY_API_OPEN_WEATHER_MAP';
     var url_maps = 'https://maps.googleapis.com/maps/api/js?';
-    var key_maps = '';
+    var key_maps = 'API_GOOGLE_MAPS';
 
 	var cidade = document.getElementById('cidade').value;
     //alert(cidade);
