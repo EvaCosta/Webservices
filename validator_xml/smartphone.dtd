@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!ELEMENT root (tipo,id,nome,preco,cameras+)>
+<!ATTLIST root
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT id (#PCDATA)>
+<!ATTLIST id
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT nome (#PCDATA)>
+<!ATTLIST nome
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT preco (unidade,a_vista,a_prazo)>
+<!ATTLIST preco
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT cameras (tipo,resolução,unidade)>
+<!ATTLIST cameras
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT a_vista (#PCDATA)>
+<!ATTLIST a_vista
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT a_prazo (#PCDATA)>
+<!ATTLIST a_prazo
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT resolução (#PCDATA)>
+<!ATTLIST resolução
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT tipo (#PCDATA)>
+<!ATTLIST tipo
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT unidade (#PCDATA)>
+<!ATTLIST unidade
+  xmlns CDATA #FIXED ''>
