@@ -8,47 +8,40 @@ function requisicao(){
     var key_maps = 'API_GOOGLE_MAPS';
 
 	var cidade = document.getElementById('cidade').value;
-    //alert(cidade);
     var req = new XMLHttpRequest();
     
     
     req.onloadend = function(){
-		//resp = req.responseText;
-        
         resp_obj = new DOMParser().parseFromString(req.responseText, "text/xml");
-
-        alert(resp_obj.getElementsByTagName('cod')[0]);
-
-        if(resp_obj.getElementsByTagName('cod')[0] == 200){
-           // alert(resp_obj.cod)
         
-            var temp_atual = resp_obj.main.temp;
-            var temp_min = resp_obj.main.temp_min;
-            var temp_max = resp_obj.main.temp_max;
-            var img = url_img + resp_obj.weather[0].icon + extensao;
-            var nascimento_sol = converte_hora(resp_obj.sys.sunrise);
-            var por_do_sol = converte_hora(resp_obj.sys.sunset);
-            var longitude = resp_obj.coord.lon;
-            var latitude = resp_obj.coord.lat;
-            var altura_nivel_mar = resp_obj.main.sea_level;
+        error = resp_obj.getElementsByTagName('cod')[0];
 
-            titulo.innerHTML = cidade.toUpperCase();
-            tempo_atual.innerHTML = temp_atual + ' °C';
-            tempo_minimo.innerHTML = temp_min + ' °C';
-            tempo_maximo.innerHTML = temp_max + ' °C';
-            nasc_sol.innerHTML = nascimento_sol;
-            por_sol.innerHTML = por_do_sol;
-            coordenadas.innerHTML = longitude + ", " + latitude;
-            nivel.innerHTML = altura_nivel_mar + " hpa";
-            icone.src = img;
-
-            maps(latitude, longitude);
-        }else if(resp_obj.cod == 404){
+        if(error != null && error.innerHTML == '404' ){
             alert('Preenchimento incorreto! Gentileza verificar os dados!');
             return;
-        }else if(resp_obj.cod == 400){
+        
+        }else if(error != null && error.innerHTML == '400'){
             alert('Campo Cidade não pode ficar vazio');
             return
+        }else{
+    
+        var temperatura_xml = resp_obj.getElementsByTagName('temperature')[0];
+        var img_xml =resp_obj.getElementsByTagName('weather')[0];
+        var sol_xml = resp_obj.getElementsByTagName('sun')[0];
+        var coordenada_xml = resp_obj.getElementsByTagName('coord')[0];
+        var altura_nivel_mar_xml = resp_obj.getElementsByTagName('pressure')[0];
+
+        titulo.innerHTML = cidade.toUpperCase();
+        tempo_atual.innerHTML = temperatura_xml.getAttribute('value') + ' °C';
+        tempo_minimo.innerHTML = temperatura_xml.getAttribute('min') + ' °C';
+        tempo_maximo.innerHTML = temperatura_xml.getAttribute('max') + ' °C';
+        nasc_sol.innerHTML =  converte_hora(sol_xml.getAttribute('rise'));
+        por_sol.innerHTML = converte_hora(sol_xml.getAttribute('set'));
+        coordenadas.innerHTML = coordenada_xml.getAttribute('lon') + ", " + coordenada_xml.getAttribute('lat') ;
+        nivel.innerHTML = altura_nivel_mar_xml.getAttribute('value') + " hpa";
+        icone.src =  url_img + img_xml.getAttribute('icon') + extensao;
+
+        maps(coordenada_xml.getAttribute('lat'), coordenada_xml.getAttribute('lon'));
         }
 	}
 
@@ -58,7 +51,7 @@ function requisicao(){
 }
 
 function converte_hora(timestamp){
-    var date = new Date(timestamp * 1000);
+    var date = new Date(timestamp + '+0000');
     return date.getHours() +':'+date.getMinutes();
 }
 
